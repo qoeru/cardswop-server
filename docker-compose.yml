@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pills}
+      POSTGRES_DB: ${POSTGRES_DB:-cardswop}
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - db:/data/postgres
+
+  server:
+    build: /server/
+    container_name: server
+    depends_on:
+      - db
+      - shared
+    restart: always
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    volumes:
+      - app_files:/app
+    
+  client:
+    build: /client/
+    volumes:
+      - app_files:/app
+    depends_on:
+      - server
+      - shared
+    
+  shared:
+    build: /shared/
+    volumes:
+      - app_files:/app
+
+
+  nginx:
+    build: server/nginx/
+    volumes:
+      - app_files:/app
+    depends_on:
+      - client
+      - server
+      - db
+    ports:
+      - "80:80"
+
+volumes:
+    db:
+      driver: local
+    app_files:

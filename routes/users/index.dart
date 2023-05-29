@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:domain/db.dart';
@@ -11,12 +12,18 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
   final db = context.read<Database>();
 
+  log('request');
+
   if (method == 'POST') {
+    log('post nethod');
     final body = await request.body();
+    log('post method, got body');
     await db.users.insertOne(
-      UserViewQueryable().decode(jsonDecode(body) as TypedMap)
-          as UserInsertRequest,
+      UserInsertRequest.jsonDecode(
+        jsonDecode(body) as Map<String, dynamic>,
+      ),
     );
+    log('post method, inserted new row');
 
     return Response();
   }
