@@ -1,0 +1,18 @@
+name: cardswopServer
+description: server part of the cardswop web app powered bt Dart Frog
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  dart_frog: ^0.3.0
+  shared:
+    path: ../packages/shared/
+  stormberry: ^0.13.1
+
+
+dev_dependencies:
+  mocktail: ^0.3.0
+  very_good_analysis: ^4.0.0
