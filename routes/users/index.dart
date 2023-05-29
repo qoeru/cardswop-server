@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:shared/db.dart';
+import 'package:domain/db.dart';
 import 'package:stormberry/stormberry.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {

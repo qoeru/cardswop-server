@@ -8,8 +8,8 @@ environment:
 
 dependencies:
   dart_frog: ^0.3.0
-  shared:
-    path: ../packages/shared/
+  domain:
+    git: https://github.com/qoeru/cardswop-domain
   stormberry: ^0.13.1
 
 
