@@ -12,3 +12,4 @@ build/
 # Test related files
 coverage/
 localenv.dart
+docker-compose.yml
