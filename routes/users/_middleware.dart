@@ -4,10 +4,10 @@ import '../../localenv.dart';
 
 final db = Database(
   host: HOST,
-  port: 5432,
-  database: 'cardswop',
-  user: 'postgres',
-  password: 'pills',
+  port: PORT,
+  database: DATABASE,
+  user: USERNAME,
+  password: PASSWORD,
   useSSL: false,
 );
 
