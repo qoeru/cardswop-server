@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cardswop_shared/db.dart';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:domain/db.dart';
 import 'package:stormberry/stormberry.dart';
+import '../../globals.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   final request = context.request;
@@ -12,26 +13,44 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
   final db = context.read<Database>();
 
-  log('request');
+  // log('request');
+
+  final body = await request.body();
+
+  log('USERS ENDPOINT: Got request body');
+
+  final requestUser = jsonDecode(body) as Map<String, dynamic>;
 
   if (method == 'POST') {
-    log('post nethod');
-    final body = await request.body();
-    log('post method, got body');
+    // log('USERS ENDPOINT, POST: Post method detected');
+
     await db.users.insertOne(
       UserInsertRequest.jsonDecode(
-        jsonDecode(body) as Map<String, dynamic>,
+        requestUser,
       ),
     );
-    log('post method, inserted new row');
+    log('USERS ENDPOINT, POST: Inserted new row');
 
-    return Response();
+    return Response(headers: Globals.corsHeaders, statusCode: 201);
   }
 
-  // if (method == 'GET') {
-  //   final params = request.uri.queryParameters;
-  //   return
-  // }
+  if (method == 'PUT') {
+    final uidFromRequest = jsonDecode(body) as Map<String, dynamic>;
 
-  return Response(body: 'This is a new route!');
+    final user = await db.users.queryUser(uidFromRequest['uid'] as String);
+    if (user == null) {
+      return Response(
+        headers: Globals.corsHeaders,
+        statusCode: 404,
+        body: 'user-not-found',
+      );
+    }
+
+    // ignore: avoid_redundant_argument_values
+    return Response(
+      headers: Globals.corsHeaders,
+      body: jsonEncode(user.jsonEncode()),
+    );
+  }
+  return Response(statusCode: 404, headers: Globals.corsHeaders);
 }

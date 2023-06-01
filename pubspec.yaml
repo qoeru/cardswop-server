@@ -1,5 +1,5 @@
-name: cardswopServer
-description: server part of the cardswop web app powered bt Dart Frog
+name: cardswop_server
+description: server part of the cardswop web app powered by Dart Frog
 version: 1.0.0+1
 publish_to: none
 
@@ -7,10 +7,12 @@ environment:
   sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
-  dart_frog: ^0.3.0
-  domain:
-    git: https://github.com/qoeru/cardswop-domain
+  cardswop_shared:
+    git: https://github.com/qoeru/cardswop-shared.git
+    # path: '../shared/'
+  dart_frog: ^0.3.0 
   stormberry: ^0.13.1
+
 
 
 dev_dependencies:
