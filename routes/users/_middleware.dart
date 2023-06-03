@@ -12,7 +12,5 @@ final db = Database(
 );
 
 Handler middleware(Handler handler) {
-  return handler.use(
-    provider<Database>((context) => db),
-  );
+  return handler.use(provider<Database>((context) => db));
 }

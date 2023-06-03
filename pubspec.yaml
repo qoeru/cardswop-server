@@ -14,7 +14,6 @@ dependencies:
   stormberry: ^0.13.1
 
 
-
 dev_dependencies:
   mocktail: ^0.3.0
   very_good_analysis: ^4.0.0

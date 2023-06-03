@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:cardswop_shared/db.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:stormberry/stormberry.dart';
-import '../../globals.dart';
 
 FutureOr<Response> onRequest(RequestContext context) async {
   final request = context.request;
@@ -13,16 +11,15 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
   final db = context.read<Database>();
 
-  // log('request');
+  log('request');
 
   final body = await request.body();
 
   log('USERS ENDPOINT: Got request body');
 
-  final requestUser = jsonDecode(body) as Map<String, dynamic>;
-
   if (method == 'POST') {
     // log('USERS ENDPOINT, POST: Post method detected');
+    final requestUser = jsonDecode(body) as Map<String, dynamic>;
 
     await db.users.insertOne(
       UserInsertRequest.jsonDecode(
@@ -31,7 +28,7 @@ FutureOr<Response> onRequest(RequestContext context) async {
     );
     log('USERS ENDPOINT, POST: Inserted new row');
 
-    return Response(headers: Globals.corsHeaders, statusCode: 201);
+    return Response(statusCode: 201);
   }
 
   if (method == 'PUT') {
@@ -40,7 +37,6 @@ FutureOr<Response> onRequest(RequestContext context) async {
     final user = await db.users.queryUser(uidFromRequest['uid'] as String);
     if (user == null) {
       return Response(
-        headers: Globals.corsHeaders,
         statusCode: 404,
         body: 'user-not-found',
       );
@@ -48,9 +44,8 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
     // ignore: avoid_redundant_argument_values
     return Response(
-      headers: Globals.corsHeaders,
       body: jsonEncode(user.jsonEncode()),
     );
   }
-  return Response(statusCode: 404, headers: Globals.corsHeaders);
+  return Response();
 }
