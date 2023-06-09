@@ -13,3 +13,5 @@ build/
 coverage/
 localenv.dart
 docker-compose.yml
+.env
+shared/

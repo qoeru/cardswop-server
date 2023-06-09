@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:cardswop_shared/cardswop_shared.dart';
 import 'package:dart_frog/dart_frog.dart';
 
@@ -11,19 +10,18 @@ FutureOr<Response> onRequest(RequestContext context) async {
   final db = context.read<Prisma>();
 
   if (method == 'POST') {
+    // post single comment
     final body = await request.body();
+    final comment = await db.createCommentUnderCard(
+      Comment.fromJson(jsonDecode(body) as Map<String, dynamic>),
+    );
 
-    final requestUser = jsonDecode(body) as Map<String, dynamic>;
-
-    final swopper = await db.createSwopper(json: requestUser);
-
-    if (swopper == null) {
-      return Response(statusCode: 404);
+    if (comment == null) {
+      return Response(statusCode: 404, body: 'your mistake');
     }
 
-    log('USERS ENDPOINT, POST: Inserted new row');
-
-    return Response(statusCode: 201, body: jsonEncode(swopper.toJson()));
+    // 200
+    return Response(body: jsonEncode(comment.toJson()));
   }
 
   return Response();

@@ -8,11 +8,17 @@ environment:
 
 dependencies:
   cardswop_shared:
-    git: https://github.com/qoeru/cardswop-shared.git
-  dart_frog: ^0.3.0 
-  stormberry: ^0.13.1
+    path: shared/
+  dart_frog: ^0.3.0
+  json_annotation: ^4.8.1
+  orm: ^3.4.3
+ 
+
+  
 
 
 dev_dependencies:
+  build_runner: ^2.4.5
+  json_serializable: ^6.7.0
   mocktail: ^0.3.0
   very_good_analysis: ^4.0.0
