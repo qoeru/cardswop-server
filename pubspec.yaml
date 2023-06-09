@@ -9,7 +9,6 @@ environment:
 dependencies:
   cardswop_shared:
     git: https://github.com/qoeru/cardswop-shared.git
-    # path: '../shared/'
   dart_frog: ^0.3.0 
   stormberry: ^0.13.1
 

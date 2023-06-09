@@ -11,21 +11,16 @@ FutureOr<Response> onRequest(RequestContext context) async {
 
   final db = context.read<Database>();
 
-  log('request users');
-
-  final body = await request.body();
-
-  log('USERS ENDPOINT: Got request body');
-
   if (method == 'POST') {
-    // log('USERS ENDPOINT, POST: Post method detected');
-    final requestUser = jsonDecode(body) as Map<String, dynamic>;
+    final body = await request.body();
+    final requestPost = jsonDecode(body) as Map<String, dynamic>;
+    if (request.headers['post-type'] == 'card') {
+      await db.cards.insertOne(CardInsertRequest.jsonDecode(requestPost));
+    }
+    if (request.headers['post-type'] == 'series') {
+      await db.serieses.insertOne(SeriesInsertRequest.jsonDecode(requestPost));
+    }
 
-    await db.users.insertOne(
-      UserInsertRequest.jsonDecode(
-        requestUser,
-      ),
-    );
     log('USERS ENDPOINT, POST: Inserted new row');
 
     return Response(statusCode: 201);
