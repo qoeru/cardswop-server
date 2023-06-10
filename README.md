@@ -1,7 +1,6 @@
 # cardswop, серверная часть
 
-Есть и другие!
->[Клиенсткая часть](https://github.com/qoeru/cardswop-client), [Domain Layer](https://github.com/qoeru/cardswop-shared)
+>[Клиенсткая часть](https://github.com/qoeru/cardswop-client)
 
 
 ## [Preview](https://drive.google.com/file/d/1wNqMHmWK4jgSyofAxVKvAUaa-ibFMLUu/view?usp=sharing) (немного устарело)
@@ -11,7 +10,7 @@
 - dart_frog
 - nginx
 - Docker
-- stormberry
+- Prisma Dart
 
 
 
