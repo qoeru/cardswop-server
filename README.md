@@ -1,6 +1,6 @@
 # cardswop, серверная часть
 
->[Клиенсткая часть](https://github.com/qoeru/cardswop-client)
+>[Клиентская часть](https://github.com/qoeru/cardswop-client)
 
 
 ## [Preview](https://drive.google.com/file/d/1wNqMHmWK4jgSyofAxVKvAUaa-ibFMLUu/view?usp=sharing) (немного устарело)
